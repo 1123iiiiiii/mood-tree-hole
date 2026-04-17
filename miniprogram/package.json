@@ -5,8 +5,8 @@
   "description": "心情树洞 - 智能心理分析心情记录应用",
   "template": "taro-template-weapp",
   "scripts": {
-    "dev:weapp": "npm run build -- --watch",
-    "build:weapp": "taro build --type weapp",
+    "dev": "taro build --type weapp --watch",
+    "build": "taro build --type weapp",
     "dev:h5": "taro build --type h5 --watch",
     "build:h5": "taro build --type h5"
   },
@@ -19,8 +19,7 @@
     "@tarojs/runtime": "3.6.35",
     "@tarojs/taro": "3.6.35",
     "axios": "^1.6.0",
-    "react": "^18.2.0",
-    "recharts": "^2.5.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@tarojs/webpack5-runner": "3.6.35",
