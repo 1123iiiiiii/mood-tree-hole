@@ -1,0 +1,74 @@
+<!--pages/record/record.wxml-->
+<view class="container">
+  <!-- 模式切换 -->
+  <view class="mode-tabs">
+    <view class="mode-tab {{mode === 'select' ? 'active' : ''}}" bindtap="switchMode" data-mode="select">
+      选择心情
+    </view>
+    <view class="mode-tab {{mode === 'essay' ? 'active' : ''}}" bindtap="switchMode" data-mode="essay">
+      心情随笔
+    </view>
+  </view>
+
+  <!-- 选择心情模式 -->
+  <view class="mode-content" wx:if="{{mode === 'select'}}">
+    <view class="section-title">今天心情如何？</view>
+    <view class="mood-grid">
+      <view class="mood-item {{selectedMood === item.value ? 'active' : ''}}"
+            wx:for="{{moods}}" wx:key="value"
+            bindtap="selectMood" data-mood="{{item.value}}">
+        <text class="mood-emoji">{{item.emoji}}</text>
+        <text class="mood-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <view class="section-title">强度</view>
+    <view class="intensity-row">
+      <text class="intensity-value">{{intensity}}</text>
+      <slider min="1" max="10" value="{{intensity}}" bindchange="onIntensityChange" activeColor="#6366f1" />
+    </view>
+
+    <view class="section-title">标签</view>
+    <view class="tag-list">
+      <view class="tag {{selectedTags.includes(item) ? 'active' : ''}}"
+            wx:for="{{tags}}" wx:key="*this"
+            bindtap="toggleTag" data-tag="{{item}}">
+        {{item}}
+      </view>
+    </view>
+
+    <view class="section-title">备注（可选）</view>
+    <textarea class="textarea" placeholder="有什么想说的..." bindinput="onEventInput" value="{{event}}" maxlength="500" />
+  </view>
+
+  <!-- 心情随笔模式 -->
+  <view class="mode-content" wx:if="{{mode === 'essay'}}">
+    <view class="section-title">发生了什么事？</view>
+    <textarea class="textarea essay-textarea" placeholder="写下今天发生的事...（至少20字）" bindinput="onEssayInput" value="{{essay}}" maxlength="1000" />
+    
+    <view class="analyzing" wx:if="{{isAnalyzing}}">
+      <text>正在分析中...</text>
+    </view>
+    
+    <view class="analysis-result" wx:if="{{analysisResult}}">
+      <view class="result-section">
+        <text class="result-title">🎭 情绪解读</text>
+        <view class="mixed-moods">
+          <view class="mixed-item" wx:for="{{mixedMoods}}" wx:key="mood">
+            <text>{{item.name}}</text>
+            <text class="percentage">{{item.percentage}}%</text>
+          </view>
+        </view>
+      </view>
+      <view class="result-section">
+        <text class="result-title">💡 心理建议</text>
+        <text class="suggestion">{{analysisResult.suggestion}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button class="submit-btn" bindtap="submitRecord" disabled="{{!canSubmit}}">
+    {{mode === 'essay' && !selectedMood ? '提交随笔' : '保存记录'}}
+  </button>
+</view>
