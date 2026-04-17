@@ -1,0 +1,64 @@
+<!--pages/analysis/analysis.wxml-->
+<view class="container">
+  <!-- 时间段选择 -->
+  <view class="time-selector">
+    <view class="time-tab {{timeRange === 'today' ? 'active' : ''}}" bindtap="selectTime" data-range="today">今天</view>
+    <view class="time-tab {{timeRange === 'week' ? 'active' : ''}}" bindtap="selectTime" data-range="week">本周</view>
+    <view class="time-tab {{timeRange === 'month' ? 'active' : ''}}" bindtap="selectTime" data-range="month">本月</view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-card">
+    <text class="card-title">📊 统计概览</text>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-value">{{stats.total}}</text>
+        <text class="stat-label">记录总数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{stats.avgIntensity}}</text>
+        <text class="stat-label">平均强度</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{stats.positivePercent}}%</text>
+        <text class="stat-label">正向情绪</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 情绪分布 -->
+  <view class="section-card">
+    <text class="card-title">🎭 情绪分布</text>
+    <view class="mood-distribution">
+      <view class="mood-bar-item" wx:for="{{moodDistribution}}" wx:key="mood">
+        <text class="mood-name">{{item.name}}</text>
+        <view class="bar-bg">
+          <view class="bar-fill" style="width: {{item.percent}}%; background: {{item.color}}"></view>
+        </view>
+        <text class="mood-count">{{item.count}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 时段分布 -->
+  <view class="section-card">
+    <text class="card-title">⏰ 时段分布</text>
+    <view class="time-distribution">
+      <view class="time-item" wx:for="{{timeSlotDistribution}}" wx:key="slot">
+        <text class="time-name">{{item.name}}</text>
+        <text class="time-count">{{item.count}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 趋势图 -->
+  <view class="section-card">
+    <text class="card-title">📈 心情趋势</text>
+    <view class="trend-chart">
+      <view class="trend-item" wx:for="{{trends}}" wx:key="date">
+        <view class="trend-bar" style="height: {{item.height}}%"></view>
+        <text class="trend-date">{{item.day}}</text>
+      </view>
+    </view>
+  </view>
+</view>
