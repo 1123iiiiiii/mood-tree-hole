@@ -255,6 +255,24 @@ export const RecordPage: React.FC = () => {
                 </div>
               </div>
             )}
+            {analysisError && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <span className="text-xl">⚠️</span>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-red-700 mb-1">AI分析暂时不可用</p>
+                    <p className="text-xs text-red-600">{analysisError}</p>
+                    {analysisError.includes('本地AI未运行') && (
+                      <div className="mt-2 p-2 bg-white/50 rounded text-xs">
+                        <p className="font-medium text-red-700">解决方法：</p>
+                        <p className="text-red-600">1. 安装Ollama: ollama.com/download</p>
+                        <p className="text-red-600">2. 运行: <code className="bg-red-100 px-1 rounded">ollama run llama3.2</code></p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
             {deepAnalysis && !isAnalyzing && (
               <div className="p-4 bg-white border border-primary/30 rounded-lg">
                 <div className="flex items-start gap-3">
