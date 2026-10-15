@@ -1,0 +1,17 @@
+# 环境变量（含真实密钥，禁止入库；示例文件请用 .env.example）
+.env
+.env.local
+.env.*.local
+
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+
+# 日志
+*.log
+npm-debug.log*
+
+# 系统文件
+.DS_Store
+Thumbs.db
